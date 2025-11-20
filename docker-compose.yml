@@ -1,0 +1,44 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./media_data:/app/media  # <--- THIS IS NEW! (Stores images on your laptop)
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    command: >
+        sh -c "python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:8000"
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+
+  celery:
+    build: .
+    # We will enable this command later once the project exists
+    command: celery -A backend worker -l info
+    volumes:
+      - .:/app
+      - ./media_data:/app/media
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  postgres_data:
