@@ -8,3 +8,10 @@ Pillow
 pytest
 pytest-django
 python-dotenv
+django-cors-headers
+django-filter
+daphne            # The Interface Server
+channels          # The WebSocket Framework
+channels_redis    # The Communication Layer
+tensorflow-cpu
+numpy

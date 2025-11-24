@@ -22,6 +22,9 @@ class Tweet(models.Model):
     # We keep it simple: just a number. 
     # (In a massive app, this would be a separate table, but this is fine for now).
     shares_count = models.IntegerField(default=0)
+
+    # We will store the AI tags here (e.g., "Persian Cat, Sofa")
+    ai_tags = models.CharField(max_length=255, blank=True, null=True)
     
     def __str__(self):
         # Show the first 20 chars of the tweet in Admin
