@@ -47,7 +47,7 @@ def check_availability(request):
     return Response({'taken': False}, status=200)
 
 class TweetViewSet(viewsets.ModelViewSet):
-    queryset = Tweet.objects.all().order_by('-created_at') # Newest tweets first
+    queryset = Tweet.objects.select_related('user').prefetch_related('comments', 'comments__user').order_by('-created_at')
     serializer_class = TweetSerializer
     
     # 1. Security: Users must be logged in to post, but anyone can read
@@ -59,7 +59,7 @@ class TweetViewSet(viewsets.ModelViewSet):
 
     # --- NEW: SEARCH CONFIGURATION ---
     filter_backends = [filters.SearchFilter]
-    search_fields = ['content', 'user__username'] # Search by text or username
+    search_fields = ['content', 'user__username','ai_tags'] # Search by text or username
 
     # 3. Automation: Auto-assign the 'user' field when saving
     def perform_create(self, serializer):

@@ -12,5 +12,10 @@ urlpatterns = [
     path('api-token-auth/', obtain_auth_token), 
 ]
 
+# Add Debug Toolbar URLs only in Debug mode
 if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -29,7 +29,6 @@ services:
 
   celery:
     build: .
-    # We will enable this command later once the project exists
     command: celery -A backend worker -l info
     volumes:
       - .:/app

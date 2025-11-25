@@ -15,3 +15,4 @@ channels          # The WebSocket Framework
 channels_redis    # The Communication Layer
 tensorflow-cpu
 numpy
+django-debug-toolbar
