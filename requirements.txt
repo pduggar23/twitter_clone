@@ -16,3 +16,5 @@ channels_redis    # The Communication Layer
 tensorflow-cpu
 numpy
 django-debug-toolbar
+django-prometheus
+strawberry-graphql-django

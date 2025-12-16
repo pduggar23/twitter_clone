@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'debug_toolbar',
     'tweets',
+    'django_prometheus',
     'corsheaders',
     'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -58,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware', 
 ]
 
 ROOT_URLCONF = 'backend.urls'

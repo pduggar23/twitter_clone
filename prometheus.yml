@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s # Check for new data every 15 seconds
+
+scrape_configs:
+  - job_name: 'django_app'
+    static_configs:
+      # "web" is the name of your Django service in docker-compose
+      # "8000" is the internal port
+      - targets: ['web:8000']

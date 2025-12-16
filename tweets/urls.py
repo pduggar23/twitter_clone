@@ -11,4 +11,5 @@ urlpatterns = [
     path('signup/', UserCreate.as_view(), name='user-create'),
     path('check-availability/', check_availability, name='check_availability'),
     path('me/', get_current_user, name='get_current_user'),
+    
 ]
