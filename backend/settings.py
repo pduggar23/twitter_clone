@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': 'db',
+        'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': '5432',
     }
 }
@@ -174,8 +174,9 @@ REST_FRAMEWORK = {
 }
 
 # Celery Configuration
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:6379/0'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:6379/0'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
@@ -190,7 +191,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("redis", 6379)], # "redis" is the docker service name
+            "hosts": [({REDIS_HOST}, 6379)], # "redis" is the docker service name
         },
     },
 }
